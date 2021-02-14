@@ -1,4 +1,4 @@
-package springboot.backend.apirest.controller.mvc;
+package springboot.backend.apirest.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -60,7 +61,7 @@ public class OrderControllerMVC {
 		return "listar";
 	}
 
-	@RequestMapping(value = "/form")
+	@GetMapping("/form")
 	public String crear(Map<String, Object> model) {
 
 		Pageable pageRequest = PageRequest.of(1, 10);
@@ -86,7 +87,7 @@ public class OrderControllerMVC {
 		return "form";
 	}
 
-	@RequestMapping(value = "/form", method = RequestMethod.POST)
+	@PostMapping("/form")
 	public String guardar(@Valid Order1 order1, BindingResult result, Model model, RedirectAttributes flash,
 			SessionStatus status) {
 		if (result.hasErrors()) {

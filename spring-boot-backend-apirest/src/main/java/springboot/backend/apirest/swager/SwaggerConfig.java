@@ -16,6 +16,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
+	
+	//http://localhost:8080/swagger-ui.html
 
 	@Bean
 	public Docket apiDocket() {
@@ -31,7 +33,7 @@ public class SwaggerConfig {
 	private ApiInfo getApiInfo() {
 		return new ApiInfo(
 				"Order Service API",
-				"Order Service API Description",
+				"Order Service API Preuba Beitech",
 				"1.0",
 				"http://codmind.com/terms",
 				new Contact("Codmind", "https://codmind.com", "apis@codmind.com"),
