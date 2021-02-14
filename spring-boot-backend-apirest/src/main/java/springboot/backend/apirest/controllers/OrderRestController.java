@@ -30,10 +30,5 @@ public class OrderRestController {
 		
 		return clienteService.findAll();
 	}
-	@GetMapping("/prueba")
-	public String prueba(Model model) {
-		model.addAttribute("titulo", "Prueba");
-		return "hello";
-	}
 
 }

@@ -37,7 +37,7 @@ import javax.validation.Valid;
 @SessionAttributes("order1")
 
 public class OrderControllerMVC {
-	OrderDTO orderDTO = new OrderDTO();
+	
 
 	@Autowired
 	private IOrderService OrderService;
@@ -48,7 +48,7 @@ public class OrderControllerMVC {
 
 	@GetMapping("/listar")
 	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
-
+		OrderDTO orderDTO = new OrderDTO();
 		Pageable pageRequest = PageRequest.of(page, 10);
 		Page<Order1> orderList = OrderService.findAll(pageRequest);
 
@@ -64,19 +64,18 @@ public class OrderControllerMVC {
 	@GetMapping("/form")
 	public String crear(Map<String, Object> model) {
 
-		Pageable pageRequest = PageRequest.of(1, 10);
 		DTO dto = new DTO();
 		Order1 order1 = new Order1();
 		java.util.Date fecha = new Date();
 		List<OrderDetail> orderDetailList = new ArrayList<OrderDetail>();
 		
-		dto.setListCustomer(CustomerService.findAll().subList(0, 10));
+		dto.setListCustomer(CustomerService.findAll().subList(0, 10));//Recorte de RegistroscRendimiento Pruebas
 		dto.setOrderDetail(OrderDetailService.findAll().subList(0, 10));
 		
-		orderDetailList.add(OrderDetailService.findOne(1));
-		orderDetailList.add(OrderDetailService.findOne(2));
+		orderDetailList.add(OrderDetailService.findOne(1));//Falta Capturar Desde el formulario
+		orderDetailList.add(OrderDetailService.findOne(2));//Falta Capturar Desde el formulario
 
-		order1.setCustomerId(CustomerService.findOne(1));
+		order1.setCustomerId(CustomerService.findOne(1));//Falta Capturar Desde el formulario
 		order1.setCreationDate(fecha);
 		order1.setOrderDetailList(orderDetailList);
 
@@ -95,7 +94,7 @@ public class OrderControllerMVC {
 
 			return "form";
 		}
-		String mensajeFlash = (order1.getOrderId() != null) ? "orden editado con éxito!" : "Orden creado con éxito!";
+		String mensajeFlash = (order1.getOrderId() != null) ? "orden Creado con éxito!" : "Orden creado con éxito!";
 
 		OrderService.save(order1);
 		status.setComplete();
