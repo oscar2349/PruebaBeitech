@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+<p th:utext="${#strings.replace( #strings.escapeXml( text ),T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}" ></p>
+	<div class="container py-4">
+
+		<div class="card bg-light">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+
+				<h4 class="card-title">
+					<a th:href="@{/form}" class="btn btn-primary">Crear Orden</a>
+				</h4>
+
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>orderId</th>
+							<th>creationDate</th>
+							<th>deliveryAddress</th>
+							<th>total</th>
+							<th>orderDetailList</th>
+					
+							
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="OrderDTO: ${listdetalleproductos}">
+							<td th:text="${OrderDTO.orderId}"></td>
+							<td th:text="${OrderDTO.creationDate}"></td>
+							<td th:text="${OrderDTO.deliveryAddress}"></td>
+							<td th:text="${OrderDTO.total}"></td>	
+							<td th:utext="${OrderDTO.orderDetailList}"></td>	
+						</tr>
+						
+						
+					</tbody>
+
+				</table>
+				<nav th:replace="paginator-nav :: paginator"></nav>
+			</div>
+		</div>
+		
+	</div>
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

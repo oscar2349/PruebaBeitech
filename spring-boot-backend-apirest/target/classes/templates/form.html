@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div class="container py-4">
+
+		<div class="card bg-dark text-white">
+			<div class="card-header" th:text="${titulo}"></div>
+			<div class="card-body">
+
+				<div th:object="${order1}" th:remove="tag">
+					<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+						<li th:each="err: ${#fields.errors('*')}" th:text="${err}"></li>
+					</ul>
+				</div>
+				<form th:action="@{/form}" th:object="${order1}" method="post">
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">orderId</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{orderId}" class="form-control"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('orderId')}" th:errors="*{orderId}"></small>
+						</div>
+					</div>	
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">deliveryAddress</label>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{deliveryAddress}"
+								class="form-control" th:errorclass="'form-control alert-danger'" />
+							<small class="form-text text-danger"
+								th:if="${#fields.hasErrors('deliveryAddress')}"
+								th:errors="*{deliveryAddress}"></small>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-2 col-form-label">total</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" th:field="*{total}"
+								th:errorclass="'form-control alert-danger'" /> <small
+								class="form-text text-danger"
+								th:if="${#fields.hasErrors('total')}" th:errors="*{total}"></small>
+						</div>
+					</div>
+
+					<select class="form-input" id="txt-input" type="text"
+						th:field="*{customerId}" placeholder="Rol" required>
+						
+						<option th:each="Customer : ${listCustomer}" th:value="${Customer.customerId}"
+							th:text="${Customer.customerId}"></option>
+					</select> <br>
+					
+					<select class="form-input" id="txt-input" type="text"
+						th:field="*{orderDetailList}" placeholder="Rol" required>
+						
+						<option th:each="OrderDetail:${listOrderDetail}" th:value="${OrderDetail.orderDetailId}"
+							th:text="${OrderDetail.productDescription}"></option>
+					</select> <br>
+
+					<div class="form-group row">
+						<div class="col-sm-6">
+							<input type="submit" value="Crear Orden"
+								class="btn btn-secondary" />
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>
