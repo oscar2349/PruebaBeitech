@@ -9,20 +9,14 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import springboot.backend.apirest.DTO.DTO;
-import springboot.backend.apirest.models.dao.ICustomerDao;
 import springboot.backend.apirest.models.dao.IOrderDao;
-import springboot.backend.apirest.models.entity.Customer;
 import springboot.backend.apirest.models.entity.Order1;
-import springboot.backend.apirest.models.entity.OrderDetail;
-import springboot.backend.apirest.models.entity.Product;
 
 @Service
 public class OrderServiceImpl implements IOrderService{
 
 	@Autowired
 	private IOrderDao orderDao;
-	private ICustomerDao customerDao;
 	
 	@Override
 	@Transactional(readOnly = true)
@@ -43,6 +37,11 @@ public class OrderServiceImpl implements IOrderService{
 
 		orderDao.save(order1);
 		
+	}
+
+	@Override
+	public Order1 findOne(Integer id) {
+		return orderDao.findById(id).orElse(null);
 	}
 
 	
