@@ -62,7 +62,12 @@ public class Order1 implements Serializable {
     @ManyToOne(optional = false)
     private Customer customerId;
 
-    public Order1() {
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Order1() {
     }
 
     public Order1(Integer orderId) {

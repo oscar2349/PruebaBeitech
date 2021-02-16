@@ -7,18 +7,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import springboot.backend.apirest.DTO.DTO;
 import springboot.backend.apirest.DTO.OrderDTO;
-import springboot.backend.apirest.models.entity.Customer;
 import springboot.backend.apirest.models.entity.Order1;
 import springboot.backend.apirest.models.entity.OrderDetail;
 import springboot.backend.apirest.models.services.ICustomerService;
@@ -63,7 +62,9 @@ public class OrderControllerMVC {
 
 	@GetMapping("/form")
 	public String crear(Map<String, Object> model) {
+		
 
+		
 		DTO dto = new DTO();
 		Order1 order1 = new Order1();
 	
@@ -71,6 +72,7 @@ public class OrderControllerMVC {
 		dto.setOrderDetail(OrderDetailService.findAll().subList(0, 10));
 
 		model.put("order1", order1);
+		
 		model.put("titulo", "Formulario de Ordenes");
 		model.put("listCustomer", dto.getListCustomer());
 		model.put("listOrderDetail", dto.getOrderDetail());
@@ -80,6 +82,8 @@ public class OrderControllerMVC {
 	@PostMapping("/form")
 	public String guardar(@Valid Order1 order1, BindingResult result, Model model, RedirectAttributes flash,SessionStatus status) {
 		
+		
+		System.out.println(" Total " + order1.getTotal());
 		java.util.Date fecha = new Date();//Fecha Actual
 		List<OrderDetail> orderDetailList = new ArrayList<OrderDetail>();
 		orderDetailList.add(OrderDetailService.findOne(1));
@@ -89,7 +93,7 @@ public class OrderControllerMVC {
 		order1.setCreationDate(fecha);
 		order1.setOrderDetailList(orderDetailList);
 
-		System.out.println(order1.getTotal());
+		
 		
 		
 		if (result.hasErrors()) {
