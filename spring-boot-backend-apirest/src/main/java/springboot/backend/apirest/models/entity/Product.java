@@ -59,6 +59,8 @@ public class Product implements Serializable {
     private double price;
    
     @ManyToMany(mappedBy = "productList")
+    @JsonManagedReference
+    @JsonIgnore
     private List<Customer> customerList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
@@ -109,8 +111,7 @@ public class Product implements Serializable {
     public void setPrice(double price) {
         this.price = price;
     }
-    @JsonManagedReference
-    @JsonIgnore
+    
     public List<Customer> getCustomerList() {
         return customerList;
     }

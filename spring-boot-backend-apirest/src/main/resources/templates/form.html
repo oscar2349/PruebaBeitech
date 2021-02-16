@@ -53,7 +53,7 @@
 							th:text="${Customer.customerId}"></option>
 					</select> <br>
 					
-					<select class="form-input" id="txt-input" type="text"
+					<select class="form-input" id="txt-input" type="text" th:field="*{producto1}" 
 						th:field="*{orderDetailList}" placeholder="Rol" required>
 						
 						<option th:each="OrderDetail:${listOrderDetail}" th:value="${OrderDetail.orderDetailId}"

@@ -13,6 +13,7 @@ public class DTO {
 	private double total;
 	private Integer orderId;
 	private String deliveryAddress, orderDetail;
+	private Integer producto1,producto2,producto3;
 	List<Customer> listCustomer;
 	List<OrderDetail> OrderDetail;
 	List<Product> productList ;
@@ -95,4 +96,31 @@ public class DTO {
 		this.orderDetail = orderDetailList;
 	}
 
+	public Integer getProducto1() {
+		return producto1;
+	}
+
+	public void setProducto1(Integer producto1) {
+		this.producto1 = producto1;
+	}
+
+	public Integer getProducto2() {
+		return producto2;
+	}
+
+	public void setProducto2(Integer producto2) {
+		this.producto2 = producto2;
+	}
+
+	public Integer getProducto3() {
+		return producto3;
+	}
+
+	public void setProducto3(Integer producto3) {
+		this.producto3 = producto3;
+	}
+
+
+
+	
 }

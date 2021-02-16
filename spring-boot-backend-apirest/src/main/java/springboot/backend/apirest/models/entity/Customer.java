@@ -60,6 +60,7 @@ public class Customer implements Serializable {
         @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")}, inverseJoinColumns = {
         @JoinColumn(name = "product_id", referencedColumnName = "product_id")})
     @ManyToMany
+    @JsonManagedReference
     private List<Product> productList;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId")
@@ -102,8 +103,7 @@ public class Customer implements Serializable {
         this.email = email;
     }
 
-    @JsonBackReference
-    //@JsonManagedReference
+    @JsonIgnore
     public List<Product> getProductList() {
         return productList;
     }

@@ -66,19 +66,9 @@ public class OrderControllerMVC {
 
 		DTO dto = new DTO();
 		Order1 order1 = new Order1();
-		java.util.Date fecha = new Date();
-		List<OrderDetail> orderDetailList = new ArrayList<OrderDetail>();
-		
-		//PAra pasarlo a menu desplegable de la vista
+	
 		dto.setListCustomer(CustomerService.findAll().subList(0, 10));//Recorte de RegistroscRendimiento Pruebas
 		dto.setOrderDetail(OrderDetailService.findAll().subList(0, 10));
-		
-		orderDetailList.add(OrderDetailService.findOne(1));//Falta Capturar Desde el formulario
-		orderDetailList.add(OrderDetailService.findOne(2));//Falta Capturar Desde el formulario
-
-		order1.setCustomerId(CustomerService.findOne(1));//Falta Capturar Desde el formulario
-		order1.setCreationDate(fecha);
-		order1.setOrderDetailList(orderDetailList);
 
 		model.put("order1", order1);
 		model.put("titulo", "Formulario de Ordenes");
@@ -88,13 +78,26 @@ public class OrderControllerMVC {
 	}
 
 	@PostMapping("/form")
-	public String guardar(@Valid Order1 order1, BindingResult result, Model model, RedirectAttributes flash,
-			SessionStatus status) {
+	public String guardar(@Valid Order1 order1, BindingResult result, Model model, RedirectAttributes flash,SessionStatus status) {
+		
+		java.util.Date fecha = new Date();//Fecha Actual
+		List<OrderDetail> orderDetailList = new ArrayList<OrderDetail>();
+		orderDetailList.add(OrderDetailService.findOne(1));
+		orderDetailList.add(OrderDetailService.findOne(2));
+
+		order1.setCustomerId(CustomerService.findOne(1));
+		order1.setCreationDate(fecha);
+		order1.setOrderDetailList(orderDetailList);
+
+		System.out.println(order1.getTotal());
+		
+		
 		if (result.hasErrors()) {
 			model.addAttribute("titulo", "Formulario de order");
 
 			return "form";
 		}
+		
 		String mensajeFlash = (order1.getOrderId() != null) ? "orden Creado con éxito!" : "Orden creado con éxito!";
 
 		OrderService.save(order1);
