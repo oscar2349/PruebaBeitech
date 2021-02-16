@@ -3,26 +3,48 @@ package springboot.backend.apirest.DTO;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.domain.Page;
-
 import springboot.backend.apirest.models.entity.Customer;
 import springboot.backend.apirest.models.entity.OrderDetail;
+import springboot.backend.apirest.models.entity.Product;
 
 public class DTO {
-	
+
 	private Date creationDate;
 	private double total;
-    private Integer orderId;
-	private String deliveryAddress,orderDetail,customerId;
+	private Integer orderId;
+	private String deliveryAddress, orderDetail;
 	List<Customer> listCustomer;
 	List<OrderDetail> OrderDetail;
+	List<Product> productList ;
+	private Customer customer;
+
+
+	public List<Product> getProductList() {
+		return productList;
+	}
+
+	public void setProductList(List<Product> productList) {
+		this.productList = productList;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	public void setOrderDetail(String orderDetail) {
+		this.orderDetail = orderDetail;
+	}
 
 	public List<OrderDetail> getOrderDetail() {
 		return OrderDetail;
 	}
 
-	public void setOrderDetail(List <OrderDetail> orderDetail) {
-		OrderDetail =  orderDetail;
+	public void setOrderDetail(List<OrderDetail> orderDetail) {
+		OrderDetail = orderDetail;
 	}
 
 	public List<Customer> getListCustomer() {
@@ -30,7 +52,7 @@ public class DTO {
 	}
 
 	public void setListCustomer(List<Customer> listCustomer) {
-		this.listCustomer =  listCustomer;
+		this.listCustomer = listCustomer;
 	}
 
 	public Integer getOrderId() {
@@ -72,17 +94,5 @@ public class DTO {
 	public void setOrderDetailList(String orderDetailList) {
 		this.orderDetail = orderDetailList;
 	}
-
-	public String getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(String customerId) {
-		this.customerId = customerId;
-	}
-
-	
-    
-  
 
 }

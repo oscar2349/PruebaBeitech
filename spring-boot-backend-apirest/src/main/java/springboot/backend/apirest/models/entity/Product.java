@@ -20,6 +20,12 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 /**
  *
  * @author Oramirez
@@ -28,6 +34,9 @@ import javax.persistence.Table;
 @Table(name = "product", catalog = "test", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")})
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "productId")
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -36,17 +45,22 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "product_id")
     private Integer productId;
+   
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
+    
     @Basic(optional = false)
     @Column(name = "product_description")
     private String productDescription;
+   
     @Basic(optional = false)
     @Column(name = "price")
     private double price;
+   
     @ManyToMany(mappedBy = "productList")
     private List<Customer> customerList;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private List<OrderDetail> orderDetailList;
 
@@ -95,7 +109,8 @@ public class Product implements Serializable {
     public void setPrice(double price) {
         this.price = price;
     }
-
+    @JsonManagedReference
+    @JsonIgnore
     public List<Customer> getCustomerList() {
         return customerList;
     }
@@ -121,7 +136,6 @@ public class Product implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Product)) {
             return false;
         }
@@ -134,7 +148,7 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication7.Product[ productId=" + productId + " ]";
+        return "Product[ productId=" + productId + " ]";
     }
     
 }

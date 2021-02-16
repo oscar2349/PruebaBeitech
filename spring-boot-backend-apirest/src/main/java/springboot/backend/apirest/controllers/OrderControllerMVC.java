@@ -69,6 +69,7 @@ public class OrderControllerMVC {
 		java.util.Date fecha = new Date();
 		List<OrderDetail> orderDetailList = new ArrayList<OrderDetail>();
 		
+		//PAra pasarlo a menu desplegable de la vista
 		dto.setListCustomer(CustomerService.findAll().subList(0, 10));//Recorte de RegistroscRendimiento Pruebas
 		dto.setOrderDetail(OrderDetailService.findAll().subList(0, 10));
 		

@@ -22,6 +22,12 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 /**
  *
  * @author Oramirez
@@ -30,6 +36,9 @@ import javax.persistence.Table;
 @Table(name = "customer", catalog = "test", schema = "")
 @NamedQueries({
     @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c")})
+@JsonIdentityInfo(
+		  generator = ObjectIdGenerators.PropertyGenerator.class, 
+		  property = "customerId")
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -93,6 +102,8 @@ public class Customer implements Serializable {
         this.email = email;
     }
 
+    @JsonBackReference
+    //@JsonManagedReference
     public List<Product> getProductList() {
         return productList;
     }
