@@ -82,7 +82,7 @@ public class OrderControllerMVC {
 	@PostMapping("/form")
 	public String guardar(@Valid Order1 order1, BindingResult result, Model model, RedirectAttributes flash,SessionStatus status) {
 		
-		
+		order1.getCustomerId();
 		System.out.println(" Total " + order1.getTotal());
 		java.util.Date fecha = new Date();//Fecha Actual
 		List<OrderDetail> orderDetailList = new ArrayList<OrderDetail>();
