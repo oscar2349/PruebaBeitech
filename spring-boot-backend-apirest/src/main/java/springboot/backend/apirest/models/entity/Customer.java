@@ -21,48 +21,42 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import javax.persistence.UniqueConstraint;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author Oramirez
  */
 @Entity
-@Table(name = "customer", catalog = "test", schema = "")
+@Table(name = "customer", catalog = "test", schema = "", uniqueConstraints = {
+    @UniqueConstraint(columnNames = {"email"})})
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c")})
-@JsonIdentityInfo(
-		  generator = ObjectIdGenerators.PropertyGenerator.class, 
-		  property = "customerId")
+    @NamedQuery(name = "Customer.findAll", query = "SELECT c FROM Customer c")
+    , @NamedQuery(name = "Customer.findByCustomerId", query = "SELECT c FROM Customer c WHERE c.customerId = :customerId")
+    , @NamedQuery(name = "Customer.findByName", query = "SELECT c FROM Customer c WHERE c.name = :name")
+    , @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email")})
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "customer_id")
+    @Column(name = "customer_id", nullable = false)
     private Integer customerId;
-    
     @Basic(optional = false)
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 191)
     private String name;
-    
     @Basic(optional = false)
-    @Column(name = "email")
+    @Column(name = "email", nullable = false, length = 191)
     private String email;
-    
     @JoinTable(name = "customer_product", joinColumns = {
-        @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")}, inverseJoinColumns = {
-        @JoinColumn(name = "product_id", referencedColumnName = "product_id")})
+        @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false)}, inverseJoinColumns = {
+        @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)})
     @ManyToMany
-    @JsonManagedReference
     private List<Product> productList;
-    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId")
     private List<Order1> order1List;
 
@@ -103,7 +97,7 @@ public class Customer implements Serializable {
         this.email = email;
     }
 
-    @JsonIgnore
+    @XmlTransient
     public List<Product> getProductList() {
         return productList;
     }
@@ -112,6 +106,7 @@ public class Customer implements Serializable {
         this.productList = productList;
     }
 
+    @XmlTransient
     public List<Order1> getOrder1List() {
         return order1List;
     }
@@ -142,7 +137,7 @@ public class Customer implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication7.Customer[ customerId=" + customerId + " ]";
+        return "javaapplication1.Customer[ customerId=" + customerId + " ]";
     }
     
 }

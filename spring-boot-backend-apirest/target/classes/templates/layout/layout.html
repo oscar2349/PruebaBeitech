@@ -19,7 +19,9 @@
 					<li class="nav-item active"><a class="nav-link" href="#">Home
 							<span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/listar}">Clientes</a>
+					<li class="nav-item"><a class="nav-link" th:href="@{/listar}">Ordenes</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/filtro}">Filtrar</a>
 					</li>
 				</ul>
 			</div>
@@ -32,25 +34,6 @@
 	</header>
 	
 	<div class="container"></div>
-	
-			<div class="form-group row" th:fragment="select">
-						<label class="col-sm-2 col-form-label">Producto</label>
-						<div class="col-sm-6">
-
-							<select th:field="*{producto1}">
-								<option value="1">Producto1</option>
-								<option value="2">Producto2</option>
-								<option value="3">Producto3</option>
-								<option value="10">Producto4</option>
-								<option value="11">Producto5</option>			
-							</select> 
-						</div>
-					</div>
-	
-	
-	
-	
-	
 	
 	<footer th:fragment="footer" class="container">
 		<hr />

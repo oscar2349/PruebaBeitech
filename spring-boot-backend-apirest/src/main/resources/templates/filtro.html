@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+<header th:replace="layout/layout :: header"></header>
+<p th:utext="${#strings.replace( #strings.escapeXml( text ),T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}" ></p>
+
+	
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

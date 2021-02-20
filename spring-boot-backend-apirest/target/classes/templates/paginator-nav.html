@@ -23,7 +23,7 @@
 				th:class="${item.actual? 'page-item active': 'page-item'}"><span
 				class="page-link" th:if="${item.actual}" th:text="${item.numero}"></span>
 				<a class="page-link" th:if="${not item.actual}"
-				th:href="@{${page.url}(page=${item.numero-1})}"
+				th:href="@{${page.url}(page=${item.numero})}"
 				th:text="${item.numero}"></a></li>
 
 

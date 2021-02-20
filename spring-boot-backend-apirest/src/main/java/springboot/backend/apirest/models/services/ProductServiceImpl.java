@@ -1,6 +1,5 @@
 package springboot.backend.apirest.models.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,36 +9,38 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import springboot.backend.apirest.models.dao.IOrderDao;
+import springboot.backend.apirest.models.dao.IProductDao;
 import springboot.backend.apirest.models.entity.Order1;
+import springboot.backend.apirest.models.entity.Product;
 
 @Service
-public class OrderServiceImpl implements IOrderService{
+public class ProductServiceImpl implements IProductService{
 
 	@Autowired
-	private IOrderDao orderDao;
+	private IProductDao productDao;
 	
 	@Override
 	@Transactional(readOnly = true)
-	public List<Order1> findAll() {
-		return (List<Order1>) orderDao.findAll();
+	public List<Product> findAll() {
+		return (List<Product>) productDao.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
-	public Page<Order1> findAll(Pageable pageable) {
-		return orderDao.findAll(pageable);
+	public Page<Product> findAll(Pageable pageable) {
+		return productDao.findAll(pageable);
 	}
 
 	@Override
 	@Transactional
-	public void save(Order1 order1) {
-		orderDao.save(order1);
+	public void save(Product product) {
+		productDao.save(product);
 		
 	}
 
 	@Override
-	public Order1 findOne(Integer id) {
-		return orderDao.findById(id).orElse(null);
+	public Product findOne(Integer id) {
+		return productDao.findById(id).orElse(null);
 	}
 
 	
