@@ -1,6 +1,5 @@
 package springboot.backend.apirest.models.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +39,11 @@ public class OrderServiceImpl implements IOrderService{
 	@Override
 	public Order1 findOne(Integer id) {
 		return orderDao.findById(id).orElse(null);
+	}
+
+	@Override
+	public List<Order1> findByStartDateBetween(String fechaInicial, String fechaFinal) {
+		return (List<Order1>)orderDao.findByStartDateBetween(fechaInicial, fechaFinal);
 	}
 
 	

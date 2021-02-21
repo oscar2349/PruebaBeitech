@@ -9,8 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import springboot.backend.apirest.models.dao.IOrderDetailDao;
-import springboot.backend.apirest.models.entity.Customer;
-import springboot.backend.apirest.models.entity.Order1;
 import springboot.backend.apirest.models.entity.OrderDetail;
 
 @Service
@@ -23,6 +21,13 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
 	public OrderDetail findOne(Integer id) {
 		return orderDetailDao.findById(id).orElse(null);
 	}
+	
+	@Override
+	public List<OrderDetail> findOrderId(Integer id) {
+		System.out.println("Paso1");
+		return (List<OrderDetail>) orderDetailDao.findOrderId(id);
+	}
+
 
 	@Override
 	public List<OrderDetail> findAll() {

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import springboot.backend.apirest.models.entity.Customer;
+import springboot.backend.apirest.models.entity.Order1;
 import springboot.backend.apirest.models.entity.OrderDetail;
 import springboot.backend.apirest.models.entity.Product;
 
@@ -17,8 +18,17 @@ public class DTO {
 	List<Customer> listCustomer;
 	List<OrderDetail> OrderDetail;
 	List<Product> productList ;
+	List<Order1> order ;
 	private Customer customer;
 
+
+	public List<Order1> getOrder() {
+		return order;
+	}
+
+	public void setOrder(List<Order1> order) {
+		this.order = order;
+	}
 
 	public List<Product> getProductList() {
 		return productList;

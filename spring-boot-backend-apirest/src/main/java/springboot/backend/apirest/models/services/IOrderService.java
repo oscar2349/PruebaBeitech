@@ -12,6 +12,7 @@ public interface IOrderService {
 	
 	public List<Order1> findAll();
 	public Page<Order1> findAll(Pageable pageable);
+	public List<Order1> findByStartDateBetween(String fechaInicial,String fechaFinal);
 	public Order1 findOne(Integer id);
 	public void save(Order1 order1);
 

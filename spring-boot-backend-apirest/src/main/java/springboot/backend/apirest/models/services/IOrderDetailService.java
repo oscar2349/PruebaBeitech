@@ -12,6 +12,7 @@ import springboot.backend.apirest.models.entity.OrderDetail;
 public interface IOrderDetailService {
 	
 	public OrderDetail findOne(Integer id);
+	public List <OrderDetail> findOrderId(Integer id);
 	public List <OrderDetail> findAll();
 	Page<OrderDetail> findAll(Pageable pageable);
 	public void save(OrderDetail orderDetailList);
