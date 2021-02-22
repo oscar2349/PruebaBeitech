@@ -31,6 +31,7 @@ import springboot.backend.apirest.paginator.PageRender;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -94,15 +95,18 @@ public class OrderControllerMVC {
 		OrderDTO orderDTO = new OrderDTO();
 		List<Order1> listOrder = OrderService.findByStartDateBetween(fechaInicial, fechaFinal);
 		List<Order1> listOrder2 = new ArrayList<Order1>();
+		String consulta="";
+	
 		
-		for (Order1 order1 : listOrder) {
+		
+	for (Order1 order1 : listOrder) {//mejorar consulta a la bdd
 			List <OrderDetail>listOrderDetail = OrderDetailService.findOrderId(order1.getOrderId());
 			order1.setOrderDetailList(listOrderDetail);
 			listOrder2.add(order1);
 		}
-		
+	
 		DTO dto = new DTO();
-		dto.setListCustomer(CustomerService.findAll());//
+		dto.setListCustomer(CustomerService.findAll());
 		model.put("listCustomer", dto.getListCustomer());
 		
 		model.put("listdetalleproductos", orderDTO.RetornaDTO(listOrder2));
@@ -110,7 +114,7 @@ public class OrderControllerMVC {
 		return "filtro";
 	}
 
-	@PostMapping("/form")
+	@PostMapping("/form")//Metodo para crear una orden
 	public String guardar(HttpServletRequest request, Order1 order1, RedirectAttributes flash) {
 		List<String> productos = new ArrayList<String>();
 		List<OrderDetail> orderDetailList = new ArrayList<OrderDetail>();
