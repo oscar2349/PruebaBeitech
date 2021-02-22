@@ -19,6 +19,14 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
  *
@@ -26,27 +34,37 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "product", catalog = "test", schema = "")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")})
+    @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
+    , @NamedQuery(name = "Product.findByProductId", query = "SELECT p FROM Product p WHERE p.productId = :productId")
+    , @NamedQuery(name = "Product.findByName", query = "SELECT p FROM Product p WHERE p.name = :name")
+    , @NamedQuery(name = "Product.findByProductDescription", query = "SELECT p FROM Product p WHERE p.productDescription = :productDescription")
+    , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")})
+
+
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "product_id")
+    @Column(name = "product_id", nullable = false)
     private Integer productId;
+    
     @Basic(optional = false)
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 191)
     private String name;
     @Basic(optional = false)
-    @Column(name = "product_description")
+    @Column(name = "product_description", nullable = false, length = 191)
     private String productDescription;
     @Basic(optional = false)
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private double price;
+    
     @ManyToMany(mappedBy = "productList")
-    private List<Customer> customerList;
+    private List<Customer> customerList;//////
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private List<OrderDetail> orderDetailList;
 
@@ -96,6 +114,8 @@ public class Product implements Serializable {
         this.price = price;
     }
 
+    @XmlTransient
+    @JsonIgnore
     public List<Customer> getCustomerList() {
         return customerList;
     }
@@ -104,6 +124,7 @@ public class Product implements Serializable {
         this.customerList = customerList;
     }
 
+    @XmlTransient
     public List<OrderDetail> getOrderDetailList() {
         return orderDetailList;
     }
@@ -134,7 +155,7 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication7.Product[ productId=" + productId + " ]";
+        return "javaapplication1.Product[ productId=" + productId + " ]";
     }
     
 }

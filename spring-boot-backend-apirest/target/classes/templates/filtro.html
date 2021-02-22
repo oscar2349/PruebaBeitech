@@ -7,11 +7,11 @@
 	<p
 		th:utext="${#strings.replace( #strings.escapeXml( text ),T(java.lang.System).getProperty('line.separator'),'&lt;br /&gt;')}"></p>
 
-		<div th:replace="layout/layout :: bucarPorFecha"></div>
+	<br>
 
-		<div th:replace="layout/layout :: listado"></div>
+	<div th:replace="layout/layout :: bucarPorFecha"></div>
 
-		<nav th:replace="paginator-nav :: paginator"></nav>
+	<div th:replace="layout/layout :: listado"></div>
 
 	<footer th:replace="layout/layout :: footer"></footer>
 </body>

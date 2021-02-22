@@ -23,6 +23,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,35 +32,39 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "order", catalog = "test", schema = "")
+@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Order1.findAll", query = "SELECT o FROM Order1 o")})
+    @NamedQuery(name = "Order1.findAll", query = "SELECT o FROM Order1 o")
+    , @NamedQuery(name = "Order1.findByOrderId", query = "SELECT o FROM Order1 o WHERE o.orderId = :orderId")
+    , @NamedQuery(name = "Order1.findByCreationDate", query = "SELECT o FROM Order1 o WHERE o.creationDate = :creationDate")
+    , @NamedQuery(name = "Order1.findByDeliveryAddress", query = "SELECT o FROM Order1 o WHERE o.deliveryAddress = :deliveryAddress")
+    , @NamedQuery(name = "Order1.findByTotal", query = "SELECT o FROM Order1 o WHERE o.total = :total")})
 public class Order1 implements Serializable {
 
     private static final long serialVersionUID = 1L;
-   
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "order_id")
+    @Column(name = "order_id", nullable = false)
     private Integer orderId;
     
     @Basic(optional = false)
-    @Column(name = "creation_date")
+    @Column(name = "creation_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date creationDate;
     
     @Basic(optional = false)
-    @Column(name = "delivery_address")
+    @Column(name = "delivery_address", nullable = false, length = 191)
     private String deliveryAddress;
-   
+    
     @Basic(optional = false)
-    @Column(name = "total")
+    @Column(name = "total", nullable = false)
     private double total;
     
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderId")
     private List<OrderDetail> orderDetailList;
-    
-    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id")
+   
+    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false)
     @ManyToOne(optional = false)
     private Customer customerId;
 
@@ -108,6 +114,7 @@ public class Order1 implements Serializable {
         this.total = total;
     }
 
+    @XmlTransient
     public List<OrderDetail> getOrderDetailList() {
         return orderDetailList;
     }
@@ -146,7 +153,7 @@ public class Order1 implements Serializable {
 
     @Override
     public String toString() {
-        return "javaapplication7.Order1[ orderId=" + orderId + " ]";
+        return "javaapplication1.Order1[ orderId=" + orderId + " ]";
     }
     
 }

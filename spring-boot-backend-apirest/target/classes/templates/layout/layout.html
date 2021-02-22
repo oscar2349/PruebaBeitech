@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head">
 <meta charset="UTF-8" />
-<title th:text="'Spring Boot: MVC + Thymeleaf + Data JPA - ' + ${titulo}"></title>
+<title
+	th:text="'Spring Boot: MVC + Thymeleaf + Data JPA - ' + ${titulo}"></title>
 <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 </head>
 <body>
@@ -19,39 +20,94 @@
 					<li class="nav-item active"><a class="nav-link" href="#">Home
 							<span class="sr-only">(current)</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link" th:href="@{/listar}">Clientes</a>
+					<li class="nav-item"><a class="nav-link" th:href="@{/listar}">Ordenes</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/filtro}">Filtrar</a>
 					</li>
 				</ul>
 			</div>
 		</nav>
-		
-		<div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
-		<div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
-		<div class="alert alert-warning" th:if="${warning != null}" th:text="${warning}"></div>
-		<div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
-	</header>
-	
-	<div class="container"></div>
-	
-			<div class="form-group row" th:fragment="select">
-						<label class="col-sm-2 col-form-label">Producto</label>
-						<div class="col-sm-6">
 
-							<select th:field="*{producto1}">
-								<option value="1">Producto1</option>
-								<option value="2">Producto2</option>
-								<option value="3">Producto3</option>
-								<option value="10">Producto4</option>
-								<option value="11">Producto5</option>			
-							</select> 
-						</div>
-					</div>
-	
-	
-	
-	
-	
-	
+		<div class="alert alert-success" th:if="${success != null}"
+			th:text="${success}"></div>
+		<div class="alert alert-danger" th:if="${error != null}"
+			th:text="${error}"></div>
+		<div class="alert alert-warning" th:if="${warning != null}"
+			th:text="${warning}"></div>
+		<div class="alert alert-info" th:if="${info != null}"
+			th:text="${info}"></div>
+	</header>
+
+
+	<div class="card-body" th:fragment="bucarPorFecha">
+
+		<form class="container-fluid" action="/filtro" method="post">
+
+			<h3 class="text-justify">Busqueda por fecha</h3>
+
+			<div>
+				<div>
+					<label class="alert alert-secondary col-sm-3">Selecione
+						Fecha inicial</label> <input class="custom-select  col-sm-3" type="date"
+						id="start" name="calendarioInicio" value="2021-02-22"
+						min="2020-01-01" max="2022-12-31" />
+				</div>
+				<div>
+					<label class="alert alert-secondary col-sm-3">Selecione
+						Fecha Final</label> <input class="custom-select col-sm-3" type="date"
+						id="start" name="calendarioFinal" value="2021-02-22"
+						min="2020-01-01" max="2022-12-31" />
+				</div>
+
+
+				<div>
+					<label class="alert alert-secondary col-sm-3">Seleccione
+						Cliente</label> <select class="custom-select col-sm-3" th:type="text"
+						name="customerId" value="">
+						<option th:each="Customer : ${listCustomer}"
+							th:value="${Customer.customerId}" th:text="${Customer.name}"></option>
+					</select>
+
+				</div>
+				<br> <input class="btn btn-primary col-sm-3" type="submit"
+					value="Consultar por Fecha"> <br> <br> <a
+					th:href="@{/form}" class="btn btn-primary col-sm-3">Crear Orden</a>
+
+			</div>
+		</form>
+	</div>
+
+	<div th:fragment="listado">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>orderId</th>
+					<th>creationDate</th>
+					<th>deliveryAddress</th>
+					<th>total</th>
+					<th>orderDetailList</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="OrderDTO: ${listdetalleproductos}">
+					<td th:text="${OrderDTO.orderId}"></td>
+					<td th:text="${OrderDTO.creationDate}"></td>
+					<td th:text="${OrderDTO.deliveryAddress}"></td>
+					<td th:text="${OrderDTO.total}"></td>
+					<td th:utext="${OrderDTO.orderDetailList}"></td>
+				</tr>
+
+
+			</tbody>
+
+		</table>
+
+	</div>
+
+
+
+
+
 	<footer th:fragment="footer" class="container">
 		<hr />
 		<p>
