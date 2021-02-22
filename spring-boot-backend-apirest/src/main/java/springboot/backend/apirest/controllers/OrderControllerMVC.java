@@ -87,6 +87,12 @@ public class OrderControllerMVC {
 		model.put("listProduct", dto.getProductList());
 		return "form";
 	}
+	
+	@GetMapping("/filtro")
+	public String retornaListar() {
+
+		return "redirect:listar";
+	}
 	@PostMapping("/filtro")
 	public String filtro(HttpServletRequest request,Map<String, Object> model) {
 
