@@ -22,6 +22,12 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 /**
  *
  * @author Oramirez
@@ -35,6 +41,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Product.findByName", query = "SELECT p FROM Product p WHERE p.name = :name")
     , @NamedQuery(name = "Product.findByProductDescription", query = "SELECT p FROM Product p WHERE p.productDescription = :productDescription")
     , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")})
+
+
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,8 +61,10 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "price", nullable = false)
     private double price;
+    
     @ManyToMany(mappedBy = "productList")
-    private List<Customer> customerList;
+    private List<Customer> customerList;//////
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private List<OrderDetail> orderDetailList;
 
@@ -105,6 +115,7 @@ public class Product implements Serializable {
     }
 
     @XmlTransient
+    @JsonIgnore
     public List<Customer> getCustomerList() {
         return customerList;
     }

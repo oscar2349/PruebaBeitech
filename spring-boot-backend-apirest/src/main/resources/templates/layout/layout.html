@@ -77,32 +77,32 @@
 		</form>
 	</div>
 
-<div th:fragment="listado">
-	<table class="table table-striped">
-		<thead>
-			<tr>
-				<th>orderId</th>
-				<th>creationDate</th>
-				<th>deliveryAddress</th>
-				<th>total</th>
-				<th>orderDetailList</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="OrderDTO: ${listdetalleproductos}">
-				<td th:text="${OrderDTO.orderId}"></td>
-				<td th:text="${OrderDTO.creationDate}"></td>
-				<td th:text="${OrderDTO.deliveryAddress}"></td>
-				<td th:text="${OrderDTO.total}"></td>
-				<td th:utext="${OrderDTO.orderDetailList}"></td>
-			</tr>
+	<div th:fragment="listado">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>orderId</th>
+					<th>creationDate</th>
+					<th>deliveryAddress</th>
+					<th>total</th>
+					<th>orderDetailList</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="OrderDTO: ${listdetalleproductos}">
+					<td th:text="${OrderDTO.orderId}"></td>
+					<td th:text="${OrderDTO.creationDate}"></td>
+					<td th:text="${OrderDTO.deliveryAddress}"></td>
+					<td th:text="${OrderDTO.total}"></td>
+					<td th:utext="${OrderDTO.orderDetailList}"></td>
+				</tr>
 
 
-		</tbody>
+			</tbody>
 
-	</table>
+		</table>
 
-</div>
+	</div>
 
 
 

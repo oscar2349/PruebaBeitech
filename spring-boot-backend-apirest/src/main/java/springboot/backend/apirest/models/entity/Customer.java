@@ -25,6 +25,12 @@ import javax.persistence.UniqueConstraint;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 /**
  *
  * @author Oramirez
@@ -55,8 +61,10 @@ public class Customer implements Serializable {
     @JoinTable(name = "customer_product", joinColumns = {
         @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false)}, inverseJoinColumns = {
         @JoinColumn(name = "product_id", referencedColumnName = "product_id", nullable = false)})
+    
     @ManyToMany
     private List<Product> productList;
+ 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId")
     private List<Order1> order1List;
 

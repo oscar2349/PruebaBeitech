@@ -1,5 +1,6 @@
 package springboot.backend.apirest.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import springboot.backend.apirest.DTO.DTO;
 import springboot.backend.apirest.DTO.OrderDTO;
 import springboot.backend.apirest.models.entity.Order1;
+import springboot.backend.apirest.models.entity.OrderDetail;
+import springboot.backend.apirest.models.entity.Product;
 import springboot.backend.apirest.models.services.ICustomerService;
 import springboot.backend.apirest.models.services.IOrderDetailService;
 import springboot.backend.apirest.models.services.IOrderService;
@@ -35,17 +38,15 @@ public class OrderRestController {
 	private IOrderDetailService OrderDetailService;
 
 	@GetMapping("/order")
-	
-	public DTO index() {
 
+	public Order1 index() {
 
-		OrderDTO orderDTO = new OrderDTO();
-		DTO dto = new DTO();
-
-
-		dto.setListCustomer(CustomerService.findAll());//
-	
-		return dto;
+		Order1 order = new Order1();
+		order.setDeliveryAddress("calle 123");
+		order.setOrderId(100);
+		Order1 listo = OrderService.findOne(new Integer(10));
+		
+		return listo;
 	}
 
 }
