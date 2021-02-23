@@ -20,13 +20,10 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  *
@@ -42,7 +39,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     , @NamedQuery(name = "Product.findByProductDescription", query = "SELECT p FROM Product p WHERE p.productDescription = :productDescription")
     , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")})
 
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -63,99 +62,9 @@ public class Product implements Serializable {
     private double price;
     
     @ManyToMany(mappedBy = "productList")
-    private List<Customer> customerList;//////
+    private List<Customer> customerList;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
     private List<OrderDetail> orderDetailList;
-
-    public Product() {
-    }
-
-    public Product(Integer productId) {
-        this.productId = productId;
-    }
-
-    public Product(Integer productId, String name, String productDescription, double price) {
-        this.productId = productId;
-        this.name = name;
-        this.productDescription = productDescription;
-        this.price = price;
-    }
-
-    public Integer getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getProductDescription() {
-        return productDescription;
-    }
-
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    @XmlTransient
-    @JsonIgnore
-    public List<Customer> getCustomerList() {
-        return customerList;
-    }
-
-    public void setCustomerList(List<Customer> customerList) {
-        this.customerList = customerList;
-    }
-
-    @XmlTransient
-    public List<OrderDetail> getOrderDetailList() {
-        return orderDetailList;
-    }
-
-    public void setOrderDetailList(List<OrderDetail> orderDetailList) {
-        this.orderDetailList = orderDetailList;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (productId != null ? productId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Product)) {
-            return false;
-        }
-        Product other = (Product) object;
-        if ((this.productId == null && other.productId != null) || (this.productId != null && !this.productId.equals(other.productId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "javaapplication1.Product[ productId=" + productId + " ]";
-    }
-    
+  
 }

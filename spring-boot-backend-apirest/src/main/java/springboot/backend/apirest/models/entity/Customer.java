@@ -6,6 +6,7 @@
 package springboot.backend.apirest.models.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -31,6 +32,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /**
  *
  * @author Oramirez
@@ -44,6 +49,9 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
     , @NamedQuery(name = "Customer.findByCustomerId", query = "SELECT c FROM Customer c WHERE c.customerId = :customerId")
     , @NamedQuery(name = "Customer.findByName", query = "SELECT c FROM Customer c WHERE c.name = :name")
     , @NamedQuery(name = "Customer.findByEmail", query = "SELECT c FROM Customer c WHERE c.email = :email")})
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -68,84 +76,4 @@ public class Customer implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "customerId")
     private List<Order1> order1List;
 
-    public Customer() {
-    }
-
-    public Customer(Integer customerId) {
-        this.customerId = customerId;
-    }
-
-    public Customer(Integer customerId, String name, String email) {
-        this.customerId = customerId;
-        this.name = name;
-        this.email = email;
-    }
-
-    public Integer getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @XmlTransient
-    public List<Product> getProductList() {
-        return productList;
-    }
-
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
-    }
-
-    @XmlTransient
-    public List<Order1> getOrder1List() {
-        return order1List;
-    }
-
-    public void setOrder1List(List<Order1> order1List) {
-        this.order1List = order1List;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (customerId != null ? customerId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Customer)) {
-            return false;
-        }
-        Customer other = (Customer) object;
-        if ((this.customerId == null && other.customerId != null) || (this.customerId != null && !this.customerId.equals(other.customerId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "javaapplication1.Customer[ customerId=" + customerId + " ]";
-    }
-    
 }
